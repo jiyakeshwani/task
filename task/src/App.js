@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Answer from "./components/Answer";
 import Quiz from "./components/Quiz";
+import Result from "./components/Result";
 
 function App() {
   let [questions, setQuestions] = useState([]);
@@ -20,14 +21,14 @@ function App() {
     };
 
     fetchData();
-  } , []);
+  }, []);
 
   return (
     <>
       <h1>Quiz Time?</h1>
       <div className=" container ">
-  
         <Quiz data={questions} />
+        
       </div>
     </>
   );

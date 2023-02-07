@@ -52,8 +52,12 @@ body{
         margin-left: 2rem;
         flex-basis: 60%;
     }
-    h2{
+    h2 {
         color: #2A0238;
+    }
+    h3{
+        font-size: 1.3rem;
+        color: rgb(91, 3, 109);
     }
     .emoji{
         font-size: 2rem;
@@ -79,4 +83,12 @@ body{
     border-radius: 6px;
     font-weight: 500;
     }
-    
+    .result{
+        margin-top: 2rem;
+        border: 5px solid white;
+        padding: 2rem;
+    }
+    p{
+        color: #2A0238;
+        font-size: 1.2rem;
+    }
