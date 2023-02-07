@@ -37,3 +37,46 @@ body{
         width: 100%;
         padding: 3rem 0;
     }
+
+    .ans , .quiz{
+        border: 2px solid #2A0238;
+     
+        border-radius: 6px;
+    }
+    .ans{
+        padding: 1rem;
+        flex-basis: 30%;
+    }
+    .quiz{
+        padding: 3rem;
+        margin-left: 2rem;
+        flex-basis: 60%;
+    }
+    h2{
+        color: #2A0238;
+    }
+    .emoji{
+        font-size: 2rem;
+    }
+    
+    .button{
+        border: 0;
+        background-color: transparent;
+        font-size: 2rem;
+    }
+    
+    .hidden{
+        visibility: hidden;
+    }
+    .submit{
+    margin-left: 18rem;
+    background-color: #2A0238;
+    color: rgb(248, 146, 248) ;
+    padding: 0.4rem 1rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    font-weight: 500;
+    }
+    
