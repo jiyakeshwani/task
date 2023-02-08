@@ -1,3 +1,6 @@
+
+
+
 import React, { useState } from "react";
 import Answer from "./Answer";
 import Result from "./Result";
@@ -5,21 +8,19 @@ import Result from "./Result";
 function Quiz(props) {
   console.log(props.data);
   let [index, setIndex] = useState(0);
-  let [answersArray, setAnswersArray] = useState([]);
-  let [selectedAnsText, setSelectedAnsText] = useState("");
+  let [savedAnswers, setSavedAnswers] = useState({});
   let [submitted, setSubmitted] = useState(false);
-  let [score , setScore] = useState(0)
+  let [score, setScore] = useState(0);
+  let [correctQ , setCorrectQ] = useState(0)
+  
 
   let currentQ = props.data[index];
 
-  let correctAnsArray = props.data.map((ques)=> {
-    return ques.correct_answer
-  })
-  
+  let correctAnsArray = props.data.map((ques) => {
+    return ques.correct_answer;
+  });
 
-  let answers = currentQ
-    ? currentQ.incorrect_answers.concat(currentQ.correct_answer)
-    : "";
+  let answers = currentQ ? currentQ.incorrect_answers.concat(currentQ.correct_answer) : "";
 
   function handleNext() {
     setIndex(index + 1);
@@ -29,51 +30,42 @@ function Quiz(props) {
     setIndex(index - 1);
   }
 
-  function handleChange(id, e) {
-    setSelectedAnsText(id);
-    setAnswersArray(answersArray.concat(selectedAnsText));
-
-    console.log(selectedAnsText);
+  function handleChange(answer, index) {
+    setSavedAnswers({ ...savedAnswers, [index]: answer });
   }
   function handleSubmit() {
-    
     setSubmitted(true);
-    for(let i=0; i<correctAnsArray.length; i++){
-        console.log(correctAnsArray[i])
-   
-        if(correctAnsArray[i] === answersArray[i]){
-            console.log(true)
-            setScore(score+1)
-        }else{
-            setScore(score)
-        }
+    for (let i = 0; i < correctAnsArray.length; i++) {
+      console.log(correctAnsArray[i], savedAnswers[i]);
+
+      if (correctAnsArray[i] === savedAnswers[i]) {
+        console.log(true);
+        setCorrectQ((correctQ)=> correctQ + 1)
+        setScore((score) => score + 2);
+    }
+    
     }
   }
 
+  console.log(score , correctQ);
   return (
     <>
       {submitted ? (
-        <Result />
+        <Result score={score} correctQ={correctQ}  />
       ) : (
         <div className="flex row">
           <div className="quiz">
             <div className="flex space-btw">
-              <button
-                onClick={handlePrevious}
-                className={index === 0 ? "hidden" : "button"}
-              >
+              <button onClick={handlePrevious} className={index === 0 ? "hidden" : "button"}>
                 ⬅️
               </button>
               <h2>Attempt Questions Here</h2>
-              <button
-                onClick={handleNext}
-                className={index === 4 ? "hidden" : "button"}
-              >
+              <button onClick={handleNext} className={index === 4 ? "hidden" : "button"}>
                 ➡️
               </button>
             </div>
             {currentQ ? (
-              <div className="ques">
+              <div className="ques" key={index}>
                 <h3>
                   Ques: {index + 1} {currentQ.question}
                 </h3>
@@ -82,8 +74,9 @@ function Quiz(props) {
                     return (
                       <li className="flex" key={i}>
                         <input
+                          checked={savedAnswers[index] === ans}
                           type="radio"
-                          onChange={() => handleChange(ans)}
+                          onChange={() => handleChange(ans, index)}
                           value={ans}
                           name="ans"
                         />
@@ -104,7 +97,7 @@ function Quiz(props) {
               ""
             )}
           </div>
-          <Answer answersArray={answersArray} />
+          <Answer answersArray={props.data.map((_, i) => savedAnswers[i])} />
         </div>
       )}
     </>

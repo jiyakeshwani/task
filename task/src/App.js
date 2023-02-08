@@ -14,7 +14,7 @@ function App() {
         const response = await fetch(apiUrl);
         const json = await response.json();
         setQuestions(json.results);
-        console.log(questions);
+       
       } catch (error) {
         console.log("error", error);
       }
